@@ -133,7 +133,7 @@
 
         function loadDiseaseData() {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "../api.json", true); 
+            xhr.open("GET", "api.json", true); 
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     diseasesData = JSON.parse(xhr.responseText);

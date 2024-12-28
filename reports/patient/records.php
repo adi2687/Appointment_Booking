@@ -37,11 +37,22 @@ if ($result) {
         echo "<p><strong>Drug Interaction Warnings:</strong> " . htmlspecialchars($appointment['drug_interaction_warnings']) . "</p>";
         echo "<p><strong>Additional Notes:</strong> " . htmlspecialchars($appointment['additional_notes']) . "</p>";
         echo "";
-        echo "<br><form action='generate_pdf.php' method='get'>";
+        echo "<br>
+        <div class='forms'>
+        <form action='generate_pdf.php' method='get'>";
         echo "<input type='hidden' name='appointment_id' value='" . htmlspecialchars($appointment['id']) . "'>";
         echo "<button type='submit'>Download PDF</button>";
         echo "</form>";
+        echo "
+        <form action='sendmail.php' method='get'>
+        <input type='hidden' name='appointment_id' value='" . htmlspecialchars($appointment['id'])."'>
+        <button type='submit' class='getmail'>Get the pdf on mail</button>
+        </form>
+        </div>
+        ";
+
         echo "</div><hr></div><hr>";
+        
     }
 } else {
     echo "<p>No appointments found.</p>";

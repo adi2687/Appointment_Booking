@@ -165,6 +165,9 @@ if ($result) {
                 
             " . "
             <h3><a href='../appointments'>Book appointment?</a></h3>
+            <h3><a href='../reports/patient'>Click here to get the prescription to your email</a></h3>
+            <h1>When the appointment is done with the doctor you will get the prescription to your email</h1>
+            
             " . $app_Details . "
         </div>";
 
@@ -217,13 +220,13 @@ if ($result) {
     
     ";
 
-foreach ($resultdoc as $res) {
-    $doc_details .= "
+    foreach ($resultdoc as $res) {
+        $doc_details .= "
         <div class='doctor'>
             <h2 class='doctor-name'>" . htmlspecialchars($res['fname']) . " " . htmlspecialchars($res['lname']) . "</h2>
             <p><strong>Contact Number:</strong> " . htmlspecialchars($res['number']) . "</p>
             <p><strong>Password:</strong> " . htmlspecialchars($res['password']) . "</p>
-            <p><strong>Login id for doctor : </strong>".$res['unique_id']."</p>
+            <p><strong>Login id for doctor : </strong>" . $res['unique_id'] . "</p>
             <p><strong>Specializations:</strong> 
                 " . htmlspecialchars($res['specialization1']) . ", 
                 " . htmlspecialchars($res['specialization2']) . ", 
@@ -232,9 +235,9 @@ foreach ($resultdoc as $res) {
             </p>
             <p><strong>Rating:</strong> " . htmlspecialchars($res['rating']) . "</p>
         </div>";
-}
+    }
 
-$doc_details .= "</div></div>";
+    $doc_details .= "</div></div>";
 
     // echo $usercred;
     echo $clinic . $doc_details;
@@ -288,14 +291,15 @@ $doc_details .= "</div></div>";
             } else {
                 $status = "<p class='status pending'>Status: Pending</p>";
             }
-
-            $app .= "<div class='appointment-box {$statusClass}'>
+$id=$row1['id'];
+            $app .= "<div class='appointment-box {$statusClass}'><a href='../reports/appointment_done/?appointment_id=$id'>
                     <p><strong>Patient Name:</strong> " . htmlspecialchars($row1['name']) . "</p>
                     <p><strong>Appointment Date:</strong> " . htmlspecialchars($row1['date']) . "</p>
                     <p><strong>Time:</strong> " . htmlspecialchars(substr($row1['time'], 0, 9)) . "</p>
                     <p><strong>Appointment Message:</strong> " . htmlspecialchars($row1['message']) . "</p>
                     <p><strong>Registered at:</strong> " . htmlspecialchars(substr($row1['time_of_reg'], 0, 20)) . "</p>
                     $status
+                    </a>
                 </div><hr>";
         }
 
@@ -326,7 +330,7 @@ $doc_details .= "</div></div>";
         
         <div id='searchResults' class='appointments'>
             <h3>Appointments</h3>
-            <p>Search the patient name to start the prescription</p>
+            <p>Search the patient name to start the prescription<br>or<br> Click the appointment to start the prescription</p>
             {$app}
         </div>
     </div>";

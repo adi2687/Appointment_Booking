@@ -27,8 +27,12 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            
         }
-        
+        .appointment form{
+            display: flex;
+            flex-direction: row;
+        }
         .appointment:hover {
             transform: scale(1.02); /* Subtle zoom on hover */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -90,6 +94,12 @@
             border:none;
             font-weight:600;
             cursor: pointer;
+        }
+        
+
+        .appointment .forms{
+            display: flex;
+            gap:1%
         }
     </style>
 </head>

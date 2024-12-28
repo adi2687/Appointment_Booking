@@ -101,6 +101,11 @@
         .loginform button {
             margin-top: -80px;
         }
+        .appointment{
+            color:white;
+            font-weight: 400;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -115,7 +120,7 @@
         <ul class="nav-links">
             <li><a href="">Home</a></li>
             <li><a href="google/hospital_locator">Hospital locator</a></li>
-            <li><a href="appointments">Book-Appointments</a></li>
+            <li class="appointment">Book-Appointments</li>
             <li id="patient">Patients</li>
             <li><a href="doctor">Doctors and clinics</a></li>
             <!-- <li><a href="billing">Billing</a></li> -->
@@ -293,7 +298,7 @@
 
                 <div class="google">
                     <img src="image/googlelogo.png" alt="">
-                    <a href="google.php">signup with google</a>
+                    <a href="googlelogin/googlesignup.php">signup with google</a>
                 </div>
             </form>
 
@@ -306,7 +311,7 @@
                 <div class="googlesign">
                     <img src="image/googlelogo.png" alt="">
 
-                    <a href="googlelogin.php">login with google</a>
+                    <a href="googlelogin/googlesignup.php">login with google</a>
                 </div>
             </form>
 
@@ -416,7 +421,32 @@
             </p>
         </form>
     </div>
+<script>
+    const appointment3 = document.querySelector(".appointment")
+        console.log("okkok")
+        appointment3.addEventListener("click", () => {
+            let xhrlogin1 = new XMLHttpRequest();
+            xhrlogin1.open("GET", "checkforpatient.php", true);
+            console.log("heyyy")
+            xhrlogin1.onload = () => {
+                if (xhrlogin1.status === 200) {
+                    const datalogin = xhrlogin1.responseText;
+                    console.log(datalogin)
+                    if (datalogin.trim() === "success") {
+                        window.location.href = "appointments";
+                        console.log("Patient access granted, redirecting...");
+                    } else {
+                        alert("Login or signup as a patient to start booking an appointment");
 
+                    }
+                } else {
+                    alert("Error: Could not verify login.");
+                    console.log("Error occurred: " + xhrlogin1.status);
+                }
+            };
+            xhrlogin1.send()
+        })
+</script>
     <script src="log.js"></script>
     <script src="sign.js"></script>
     <script src="script.js"></script>
@@ -570,6 +600,8 @@
                 console.error('Error fetching JSON data:', error);
             }
         });
+
+        
     </script>
 </body>
 

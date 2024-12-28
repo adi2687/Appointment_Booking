@@ -83,20 +83,21 @@ $clinic_id=$clinic['clinic_id'];
     foreach ($doctors as $doctor) {
         $doctorName = $doctor['fname'] . " " . $doctor['lname'];
         $specializations = $doctor['specialization1'] . " " . $doctor['specialization2'] . " " . $doctor['specialization3'] . " " . $doctor['specialization4'];
-
+$doctor_id=$doctor['unique_id'];
         // Fetch rating count for the doctor
         $query2 = "SELECT COUNT(*) AS rating_count FROM rating WHERE doctor=:name";
         $stmt2 = $pdo->prepare($query2);
         $stmt2->bindParam(":name", $doctorName);
         $stmt2->execute();
         $ratingCount = $stmt2->fetch(PDO::FETCH_ASSOC)['rating_count'];
-
+// echo $doctor_id;
         echo "<div class='doctor-info'>";
         echo "<div class='doctor-name'>" . htmlspecialchars($doctorName) . "</div>";
+        echo "<div class ='doctordir'><a href='../appointments/book_appointment_with_doctor.php?doctor_id=$doctor_id'>Book appointment with $doctorName</a></div>";
         echo "<div class='doctor-details'>Contact: " . htmlspecialchars($doctor['number']) . "</div>";
         echo "<div class='doctor-details'>Email: " . htmlspecialchars($doctor['email']) . "</div>";
         echo "<div class='specializations'>Specializations: " . htmlspecialchars($specializations) . "</div>";
-        echo "<div class='rating'>Rating: " . htmlspecialchars($doctor['rating']) . " stars. Rated by $ratingCount patients</div>";
+        echo "<div class='rating'>Rating: " . htmlspecialchars(round($doctor['rating'],1)) . " stars. Rated by $ratingCount patients</div>";
         echo "</div><br>";
     }
 

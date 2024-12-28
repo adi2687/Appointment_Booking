@@ -841,6 +841,24 @@ h2{
     color:white;
     font-weight: bold;
 }
+#patient_report {
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+a{
+    text-decoration:none;
+    
+
+}
+
+h1{
+    font-size: 18px;
+    font-weight:bold;
+    color:grey
+}
+
     </style>
 </head>
 
@@ -849,19 +867,18 @@ h2{
         <div class="logo">
             <a href="../"><img src="../image/logo.png" alt="">
             </a>
-            MedPulse
+            MedPulse 
 
         </div>
         <ul class="nav-links">
-            <li><a href="../">Home</a></li>
-            <li><a href="../google/hospital_locator/">Hospital locator</a></li>
+            <li><a href="">Home</a></li>
+            <li><a href="google/hospital_locator">Hospital locator</a></li>
             <li><a href="../appointments">Book-Appointments</a></li>
             <li id="patient">Patients</li>
-            <li><a href="../doctor">Doctors and clinics</a></li>
-            <!-- <li><a href="">Services</a></li> -->
-            <li><a href="../billing">Billing</a></li>
-            <li><a href="../reports">Prescriptions</a></li>
-            <li class="symptomschecker"><a href="../prediction">Symptoms-checker</a></li>
+            <li><a href="doctor">Doctors and clinics</a></li>
+            <!-- <li><a href="billing">Billing</a></li> -->
+            <li id="patient_report">Prescription</li>
+            <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li>
             <li id="login">Login</li>
         </ul>
     </nav>
@@ -948,7 +965,7 @@ h2{
             }
         };
         xhr_l1.send()
-        
+        document.getElementById("patient_report").addEventListener('click',()=>{window.location.href="http://localhost/MedPulse-main/reports/patient/"})
     </script>
 
     <!-- <a href="../access.php"></a> -->
