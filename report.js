@@ -29,3 +29,5 @@ document.getElementById("patient_report").onclick = () => {
 };
 
 console.log("Login script initialized.");
+
+

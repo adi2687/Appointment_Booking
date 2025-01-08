@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Videos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body {
+            font-family: Poppins;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            font-size: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            margin: 0;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .video-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background: #fff;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            /* background-color: #17206d; */
+            color: #000;
+            /* Violet blue theme */
+            background-color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
+
+            gap: 10%;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 50px
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            font-size: 120%;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            /* color: #ffffff; */
+            /* font-size: 20px; */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #A9A9F5;
+            /* Light violet blue on hover */
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #A9A9F5;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        #doctor-search {
+            width: 750px;
+            height: 40px;
+            border-radius: 15px;
+            border: 1px solid black;
+        }
+
+        /* Container for the search bar */
+        .search-container {
+            position: relative;
+            width: 214%;
+            max-width: 670px;
+            left: -45px;
+        }
+
+        /* Style the search input field */
+        #doctor-search {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 24px;
+        }
+
+        /* Style the suggestion list */
+        .suggestions-list {
+            position: absolute;
+            width: 147.5%;
+            top: 100%;
+            left: 80px;
+            right: 0;
+            max-height: 200px;
+            /* Limit the height */
+            overflow-y: auto;
+            /* Add scroll if there are many results */
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+            /* Initially hidden */
+        }
+
+        /* Style each list item */
+        .suggestions-list li {
+            padding: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Highlight the suggestion on hover */
+        .suggestions-list li:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Style for when no results are found */
+        .suggestions-list li.no-results {
+            font-style: italic;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href=""><img src="image/logo.png" alt="">
+            </a>
+            MedPulse
+
+        </div>
+        <div class="search-container">
+            <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+            <ul id="suggestions" class="suggestions-list"></ul> <!-- Suggestions will appear here -->
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="google/hospital_locator">Hospital locator</a></li>
+            <li><a href="index.html#container1" class="services">Services</a></li>
+            <!-- <li id="patient">Patients</li> -->
+            <!-- <li><a href="doctor">Doctors and clinics</a></li> -->
+            <!-- <li><a href="billing">Billing</a></li> -->
+            <li id="patient_report">Prescription</li>
+            <!-- <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li> -->
+            <li id="login"><a href="doctor">Nearby Doctors</a></li>
+        </ul>
+    </nav>
+    <h1>Health Video Library</h1>
+    <div id="loading-message" class="error-message">Loading health videos...</div>
+    <div class="video-container" id="video-container"></div>
+
+    <script>
+        const PEXELS_API_KEY = 'gzkWgeYlpsstsfsTaaKIfFGY6m17BUzZDqZ0fdcF9MXmwmAVR4CRfc03'; // Replace with your actual Pexels API key
+        const query = 'health';
+
+        async function fetchHealthVideos() {
+            const loadingMessage = document.getElementById('loading-message');
+            const videoContainer = document.getElementById('video-container');
+
+            try {
+                // Fetch videos from the Pexels API
+                const response = await fetch(`https://api.pexels.com/videos/search?query=${query}`, {
+                    headers: {
+                        Authorization: PEXELS_API_KEY
+                    }
+                });
+
+                // Handle HTTP errors
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Hide the loading message
+                loadingMessage.style.display = 'none';
+
+                // Display the videos
+                data.videos.forEach(video => {
+                    const videoCard = document.createElement('div');
+                    videoCard.classList.add('video-card');
+
+                    const thumbnail = video.video_pictures[0]?.picture || 'placeholder.png'; // Use thumbnail if available
+                    const videoFile = video.video_files.find(file => file.file_type === 'video/mp4')?.link;
+
+                    // Skip if no playable video file
+                    if (!videoFile) {
+                        return;
+                    }
+
+                    videoCard.innerHTML = `
+                        <img src="${thumbnail}" alt="Video thumbnail" class="video-thumbnail" onclick="playVideo('${videoFile}')">
+                        <div class="video-title">${video.user.name || 'Unknown Creator'}</div>
+                    `;
+                    videoContainer.appendChild(videoCard);
+                });
+
+                // If no videos are found, show a message
+                if (data.videos.length === 0) {
+                    loadingMessage.style.display = 'block';
+                    loadingMessage.textContent = 'No health videos found.';
+                }
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+                loadingMessage.textContent = 'Failed to load health videos. Please try again later.';
+            }
+        }
+
+        // Function to play video
+        function playVideo(videoUrl) {
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.innerHTML = `
+                <video controls autoplay>
+                    <source src="${videoUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+        }
+
+        // Fetch health videos on page load
+        fetchHealthVideos();
+    </script>
+</body>
+
+</html>

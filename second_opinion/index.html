@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="style3.css">
+    <style>
+        /* Global styles */
+        #suggestions2 {
+            margin-top: 10%;
+        }/* Global styles */
+
+.navbar .nav-links li a:hover {
+    color: #ddd;
+}
+
+#suggestions {
+    background-color: white;
+    border: 1px solid #ccc;
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.suggestions-list li {
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f1f1f1;
+}
+
+#suggestions2 {
+    margin-top: 10%;
+}
+
+.main {
+    padding: 2em;
+}
+
+.details {
+    margin-top: 2em;
+    padding: 1em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.extra {
+    margin-top: 2em;
+}
+
+.selecteddoctors {
+    margin-top: 1em;
+}
+
+.selected-doctor {
+    background-color: #f9f9f9;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selected-doctor button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.selected-doctor button:hover {
+    background-color: #c0392b;
+}
+
+.selected-doctor input {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.selected-doctor input[type="date"],
+.selected-doctor input[type="time"] {
+    width: 48%;
+    display: inline-block;
+    margin-right: 2%;
+}
+
+.selected-doctor input[type="text"] {
+    width: 100%;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 1em;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.no-results {
+    padding: 1em;
+    color: #777;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5em;
+    color: #999;
+}
+
+.main .details{
+    width:28%;
+    max-height:300px
+}
+.extra{
+    max-height:290px
+}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../"><img src="../image/logo.png" alt="">MedPulse</a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+            <ul id="suggestions" class="suggestions-list"></ul>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../">Home</a></li>
+            <li><a href="../google/hospital_locator">Hospital locator</a></li>
+            <li><a href="../#container1" class="services">Services</a></li>
+            <li id="patient_report"><a href="../reports/patient/">Prescription</a></li>
+        </ul>
+    </nav>
+
+    <div class="main">
+        <div class="root"></div>
+        <div class="details">Select an appointment to get the details of the appointment</div>
+        <div class="extra">
+            <input type="text" id="doctor-search2">
+            <div id="suggestions2"></div>
+            <div class="selecteddoctors"></div>
+        </div>
+    </div>
+
+    <script src="../doctor_search.js"></script>
+    <script>
+
+        let id, selectedDoctors = [];
+
+        // Fetch appointments and render them
+        fetch("back.php")
+            .then(response => response.json())
+            .then(data => {
+                const rootDiv = document.querySelector(".root");
+
+                if (data.error) {
+                    rootDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                    return;
+                }
+
+                if (data.message) {
+                    rootDiv.innerHTML = `<p>${data.message}</p>`;
+                    return;
+                }
+
+                let htmlContent = '<h2>Appointments</h2>';
+                data.forEach(appointment => {
+                    htmlContent += `
+                <div>
+                    <strong>Doctor:</strong> ${appointment.preferred_doctors}<br>
+                    <strong>Date of Appointment:</strong> ${appointment.time}<br>
+                    <strong>Message to the Doctor:</strong> ${appointment.message}<br>
+                    <strong>Registered At:</strong> ${appointment.time_of_reg}<br>
+                    <p onclick='more(${JSON.stringify(appointment)})'>View more</p>
+                    <hr>
+                </div>
+            `;
+                });
+
+                rootDiv.innerHTML = htmlContent;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.querySelector(".root").innerHTML = "<p>Failed to fetch data.</p>";
+            });
+
+        // View more details of an appointment
+        function more(appointment) {
+            const details = document.querySelector(".main .details");
+
+            details.innerHTML = `
+        <strong>Doctor:</strong> ${appointment.preferred_doctors}<br>
+        <strong>Date of Appointment:</strong> ${appointment.time}<br>
+        <strong>Message to the Doctor:</strong> ${appointment.message}<br>
+        <strong>Registered At:</strong> ${appointment.time_of_reg}<br>
+        <strong>Dosage:</strong> ${appointment.dosage}<br>
+        <strong>Frequency:</strong> ${appointment.frequency}<br>
+        <strong>Duration:</strong> ${appointment.duration}<br>
+        <strong>Route:</strong> ${appointment.route}<br>
+        <strong>Instructions:</strong> ${appointment.instructions}<br>
+        <strong>Refills:</strong> ${appointment.refills}<br>
+        <strong>Signature:</strong> ${appointment.signature}<br>
+        <strong>Drug Interaction Warnings:</strong> ${appointment.drug_interaction_warnings}<br>
+        <strong>Additional Notes:</strong> ${appointment.additional_notes}<br>
+        <button onclick='select(this,${JSON.stringify(appointment)})'>Select this Appointment</button>
+    `;
+        }
+
+        // Select an appointment
+        function select(props, appointment) {
+
+            props.textContent = "Selected"
+            id = appointment.id;
+        }
+
+        // Doctor search functionality
+        document.getElementById("doctor-search2").addEventListener("input", function () {
+            const query = this.value.trim();
+            const suggestions = document.getElementById("suggestions2");
+
+            if (query.length > 0) {
+                fetch(`../search_doctors1.php?query=${encodeURIComponent(query)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        suggestions.innerHTML = ""; // Clear previous results
+
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const li = document.createElement("div");
+                                li.innerHTML = `
+                            <div class="doctor-item">
+                                <input type="checkbox" data-doctor='${JSON.stringify(item)}'>
+                                <span>${item.fname} ${item.lname} (${item.specialty})</span>
+                                
+                            </div>`;
+
+                                suggestions.appendChild(li);
+                            });
+
+                            const checkboxes = suggestions.querySelectorAll('input[type="checkbox"]');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.addEventListener("change", handleDoctorSelection);
+                            });
+                        } else {
+                            const li = document.createElement("li");
+                            li.classList.add("no-results");
+                            li.textContent = "No doctors found";
+                            suggestions.appendChild(li);
+                        }
+                        suggestions.style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data:", error);
+                    });
+            } else {
+                suggestions.innerHTML = "";
+                suggestions.style.display = "none";
+            }
+        });
+
+        // Handle doctor selection and add to selected list
+        function handleDoctorSelection(event) {
+            const selectedDoctorsDiv = document.querySelector(".selecteddoctors");
+            const checkbox = event.target;
+            const doctor = JSON.parse(checkbox.getAttribute("data-doctor"));
+
+            if (checkbox.checked) {
+                const doctorDiv = document.createElement("div");
+                doctorDiv.classList.add("selected-doctor");
+                doctorDiv.setAttribute("data-id", doctor.id);
+
+                // Add the doctor ID to the selectedDoctors array
+                selectedDoctors.push(doctor.unique_id);
+
+                doctorDiv.innerHTML = `
+            <span>${doctor.fname} ${doctor.lname} (${doctor.specialty})</span>
+            <button class="remove-btn">Remove</button>
+            <br>
+                        <input type='date' id='appointment-date'>
+                        <input type='time' id='appointment-time'>
+<input type='text' id='appointment-message'>
+            <button onclick='bookAppointment("${doctor.unique_id}")'>Book Appointment</button>`;
+                selectedDoctorsDiv.appendChild(doctorDiv);
+
+                doctorDiv.querySelector(".remove-btn").addEventListener("click", function () {
+                    checkbox.checked = false;
+                    selectedDoctorsDiv.removeChild(doctorDiv);
+
+                    // Remove the doctor ID from the selectedDoctors array
+                    selectedDoctors = selectedDoctors.filter(id => id !== doctor.unique_id);
+                });
+            } else {
+                const doctorDiv = selectedDoctorsDiv.querySelector(`.selected-doctor[data-id='${doctor.id}']`);
+                if (doctorDiv) {
+                    selectedDoctorsDiv.removeChild(doctorDiv);
+
+                    // Remove the doctor ID from the selectedDoctors array
+                    selectedDoctors = selectedDoctors.filter(id => id !== doctor.unique_id);
+                }
+            }
+        }
+
+        // Book an appointment for a selected doctor
+        function bookAppointment(doctorId) {
+            if (!id) {
+                alert("Please select an appointment first!");
+                return;
+            }
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const message = document.getElementById('appointment-message').value
+            const payload = {
+                appointment_id: id,
+                selected_doctors: selectedDoctors,
+                date: date,
+                message: message, time: time,
+            };
+            console.log(payload)
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "book_second_data.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            // Event listener for the request
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) { // Request is complete
+                    if (xhr.status === 200) { // Successful response
+                        const response = xhr.responseText
+                        console.log(response)
+                        alert("Appointment booked successfully")
+                        window.location.href = "../profile"
+                    } else {
+                        console.error("Error sending data:", xhr.status, xhr.statusText);
+                        alert(`Failed to send data. Status: ${xhr.status}`);
+                    }
+                }
+            };
+
+            // Handle network-level errors
+            xhr.onerror = function () {
+                console.error("Network error occurred during the request.");
+                alert("A network error occurred. Please check your internet connection.");
+            };
+
+            // Send the request
+            xhr.send(JSON.stringify(payload));
+        }
+
+
+    </script>
+</body>
+
+</html>

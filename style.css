@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #000;
+    font-family: Poppins;
+    font-size: 12px;
 }
 
 .navbar {
@@ -8,7 +13,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #17206d;
+    /* background-color: #17206d; */
+    color: #000;
     /* Violet blue theme */
 }
 
@@ -43,8 +49,9 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #ffffff;
-    font-size: 20px;
+    color: #000;
+    /* color: #ffffff; */
+    /* font-size: 20px; */
     transition: color 0.3s ease;
 }
 
@@ -208,14 +215,72 @@ a {
     gap: 10px;
 }
 
-.exp1,
-.exp2 {
+.flex {
     display: flex;
-    gap: 10%;
-    width: 100%;
+    flex-wrap: nowrap;
+    /* Prevent wrapping of image and boxes */
+    align-items: flex-start;
+    /* Align items to the top */
+    gap: 20px;
+    /* Space between the image and the boxes */
 }
 
-.exp1 div,
+.flex img {
+    width: 500px;
+    /* Set a fixed image width */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 20px;
+}
+
+.flex img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.exp1 {
+    display: grid;
+    /* Use grid layout for disease boxes */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Auto-fit boxes per row */
+    gap: 10px;
+    /* Space between disease boxes */
+    flex-grow: 1;
+    /* Allow this section to grow and occupy remaining space */
+}
+
+.disease-box {
+    background-color: #f0f0f0;
+    /* Optional: Background color */
+    padding: 15px;
+    height: 50px;
+    width: auto;
+    /* align-items: center; */
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /* Include padding in box dimensions */
+}
+
+.disease-box:hover {
+    cursor: pointer;
+}
+
+/* Optional: Responsive behavior */
+@media (max-width: 768px) {
+    .flex {
+        flex-wrap: wrap;
+        /* Allow image and boxes to stack vertically */
+    }
+
+    .exp1 {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* Adjust grid for smaller screens */
+    }
+}
+
+
+
 .exp2 div {
     background-color: transparent;
     color: rgb(108, 108, 173);
@@ -243,220 +308,267 @@ a {
 }
 
 .features {
+    background-color: #ebfbff;
+}
+
+.features .others {
     display: flex;
-    margin-left: 10%;
-    width: 82%;
-    gap: 10%;
-    margin-top: 3%
+    justify-content: flex-start; /* Align items to start */
+    align-items: flex-start;
+    gap: 200px; /* Reduce the gap between the list and the image */
+    margin-top: 38px;
+    margin-bottom: 50px;
 }
 
 .intro {
-    width: 30%;
-    display: flex;
-    justify-content: center;
     text-align: center;
-    flex-direction: column;
-    color: rgb(46, 46, 71);
-    font-size: 140%;
+    margin-top: 80px;
 }
 
-.others {
-    width: 68%;
-    display: flex;
-    flex-direction: row;
-    gap: 16%;
-    font-weight: bold;
-    font-size: 120%;
+.features .diseases ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three diseases in one row */
+    gap: 20px 15px; /* Adjust spacing between rows and columns */
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    max-width: 65%; /* Restrict the width to balance space with the image */
+    position: relative;
+    left: 175px;
+}
+
+.features .diseases li {
+    font-size: 1.1em;
+    color: #333;
+    margin: 5px 0;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 15px;
+    width: auto;
+    background-color: #f0f0f0;
+    object-fit: cover;
+}
+
+.features .diseases li:hover {
     cursor: pointer;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.others li {
-    padding: 10px;
-    border-bottom: 1px solid rgb(173, 173, 207);
-    color: rgb(108, 108, 173);
-    width: 100%
+.features .image img {
+    width: 500px;
+    position: relative;
+    left: -85px;
+    /* max-width: 500px; Adjust image size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 20px; /* Optional: Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
 }
 
-.others li:hover {
-    color: rgb(173, 173, 207)
+.features .image img:hover {
+    transform: scale(1.1);
 }
 
 footer {
-    width:90%;
-    margin-left:5%;
+    width: 90%;
+    margin-left: 5%;
     /* background-color: rgb(62, 62, 133); */
     display: flex;
     flex-direction: row;
-    gap:6%;
-    border:4px solid transparent;
-    background-color:rgb(198, 198, 228);
+    gap: 6%;
+    border: 4px solid transparent;
+    background-color: rgb(198, 198, 228);
 }
-footer div{
+
+footer div {
     width: 38%
 }
+
 .first div {
-width:100%
+    width: 100%
 }
-.connect{
-    width:30%;
-    margin-left:15%
+
+.connect {
+    width: 30%;
+    margin-left: 15%
 }
-.connect i{
+
+.connect i {
     font-size: 30px;
 }
-.first{
-    padding:10px;
-    color:rgb(59, 59, 133);
-display: flex;
-flex-direction: column;
-justify-content: center;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-font-size:100%;
-font-weight: bold;
+
+.first {
+    padding: 10px;
+    color: rgb(59, 59, 133);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 100%;
+    font-weight: bold;
 }
-.first button{
+
+.first button {
     font-weight: bolder;
     font-size: 110%;
-    padding:12px;
+    padding: 12px;
     border-radius: 12px;
     background-color: transparent;
-    border:2px solid rgb(66, 66, 141);
-    color:rgb(46, 46, 71);
-    width:60%;
+    border: 2px solid rgb(66, 66, 141);
+    color: rgb(46, 46, 71);
+    width: 60%;
     cursor: pointer;
 }
-.first .about{
+
+.first .about {
     font-size: 130%;
     font-weight: bolder;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-
 }
-.first .about p:hover,.second p:hover{
+
+.first .about p:hover,
+.second p:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.first button:hover{
-    color:white;
-    border:2px solid rgb(108, 108, 173)
+
+.first button:hover {
+    color: white;
+    border: 2px solid rgb(108, 108, 173)
 }
-.second{
-width:43%;
-font-size: 130%;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-color: rgb(59, 59, 133);
+
+.second {
+    width: 43%;
+    font-size: 130%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(59, 59, 133);
 
 }
-.second h1,p{
+
+.second h1,
+p {
     cursor: pointer;
 }
-a{
-    color:rgb(59,58,112)
+
+a {
+    color: rgb(59, 58, 112)
 }
-.third{
-    padding:12px;
-    
-font-size: 130%;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-color: rgb(59, 59, 133);
+
+.third {
+    padding: 12px;
+
+    font-size: 130%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(59, 59, 133);
 
 }
 
-.third p:hover{
-cursor: pointer;
-text-decoration: underline;
+.third p:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
-.connect{
+
+.connect {
     display: flex;
     gap: 2%;
-margin-left:5%;
-margin-top:2%;
-background-color: rgb(109, 108, 158);
-width:89.2%;
-justify-content: center;
-align-items: center;
-padding:12px;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: rgb(109, 108, 158);
+    width: 89.2%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
 }
 
-.connect i{
+.connect i {
     padding: 10px;
-border-radius:10px;
-font-size: 32px;
-color:white
+    border-radius: 10px;
+    font-size: 32px;
+    color: white
 }
 
-.fa-brands:hover{
+.fa-brands:hover {
     cursor: pointer;
-    color:white
+    color: white
 }
-.fa-youtube:hover{
-    background-color:rgb(202, 2, 2)
+
+.fa-youtube:hover {
+    background-color: rgb(202, 2, 2)
 }
-.fa-linkedin:hover{
-    background-color:rgb(7, 72, 94)
+
+.fa-linkedin:hover {
+    background-color: rgb(7, 72, 94)
 }
-.fa-instagram:hover{
+
+.fa-instagram:hover {
     background-image: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4)
 }
-.fa-x-twitter:hover{
+
+.fa-x-twitter:hover {
     background-color: black;
 }
-.fa-facebook:hover{
+
+.fa-facebook:hover {
     background-color: #1877F2
 }
-.last{
+
+.last {
     display: flex;
-    gap:58px;
-background-color: rgb(173, 173, 207);
-width:89.42%;
-margin-left:5%;
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top:10px;
-font-weight: bold;
-padding:10px;
-color:rgb(39, 39, 75)
+    gap: 58px;
+    background-color: rgb(173, 173, 207);
+    width: 89.42%;
+    margin-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-weight: bold;
+    padding: 10px;
+    color: rgb(39, 39, 75)
 }
-.last div:hover{
+
+.last div:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.copy{
-    width:20%;
-    margin-left:41%;
-background-color:rgb(173, 173, 207);
-margin-top:0.9%;
-display: flex;
-justify-content: center;
-align-items: center;
-color:rgb(39,39,73);
-font-weight: bolder;
-padding:12px;
-border-radius: 13px;
-cursor: pointer;
+
+.copy {
+    width: 20%;
+    margin-left: 41%;
+    background-color: rgb(173, 173, 207);
+    margin-top: 0.9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(39, 39, 73);
+    font-weight: bolder;
+    padding: 12px;
+    border-radius: 13px;
+    cursor: pointer;
 }
-.symptoms{
+
+.symptoms {
     position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    width:40%;
-    height:auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: auto;
     border-radius: 12px;
     background-color: rgb(31, 31, 59);
     display: none;
 }
-.symptoms input{
-/* width:70%; */
-margin-left:9%;
-margin-top:3%;
-padding:10px;
-font-weight: bold;
-border-radius: 12px;
-border:1px solid rgb(173, 173, 207);
-color:rgb(116, 116, 218)
+
+.symptoms input {
+    /* width:70%; */
+    margin-left: 9%;
+    margin-top: 3%;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 12px;
+    border: 1px solid rgb(173, 173, 207);
+    color: rgb(116, 116, 218)
 }
+
 .search-container {
     position: relative;
     width: 100%;
@@ -465,78 +577,89 @@ color:rgb(116, 116, 218)
 
 .search-container input[type="text"] {
     width: 130%;
-    padding: 10px 40px 10px 20px; /* Adjust padding to make room for the icon */
+    padding: 10px 40px 10px 20px;
+    /* Adjust padding to make room for the icon */
     font-size: 16px;
-    border-radius: 20px; /* Rounded corners */
+    border-radius: 20px;
+    /* Rounded corners */
     border: 1px solid #ccc;
     box-sizing: border-box;
-    margin-left:10%
+    margin-left: 10%
 }
 
 .search-container svg {
     position: absolute;
-    left: 130%  ; /* Position the icon inside the input field */
+    left: 130%;
+    /* Position the icon inside the input field */
     top: 60%;
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    fill: #888; /* Color of the icon */
+    fill: #888;
+    /* Color of the icon */
     cursor: pointer;
 }
-.symptoms .result{
-    color:white;
+
+.symptoms .result {
+    color: white;
     font-weight: bold;
     display: flex;
-    margin-top:1%;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-padding:12px
+    margin-top: 1%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 12px
 }
-.symptoms .cross{
-    margin-left:96%;font-size: 30px;color:white;
+
+.symptoms .cross {
+    margin-left: 96%;
+    font-size: 30px;
+    color: white;
     cursor: pointer;
 }
-.login{
-    width:40%;
-    height:auto;
+
+.login {
+    width: 40%;
+    height: auto;
     position: absolute;
-    top:50%;
-    left:48%;
-    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
     background-color: rgb(55, 55, 118);
     border-radius: 23px;
-    
+
 }
-.log{
+
+.log {
     display: flex;
-    gap:10%;
+    gap: 10%;
     /* background-color: rgb(90, 90, 141); */
-    width:30%;
+    width: 30%;
     justify-content: center;
 }
 
-.log div{
-border-radius: 12px;
-border:2px solid rgb(173, 173, 207);
-color:white;
-padding:10px;
-font-weight:bolder;
-cursor: pointer;
-min-width:100px;
-display: flex;
-justify-content: center;
+.log div {
+    border-radius: 12px;
+    border: 2px solid rgb(173, 173, 207);
+    color: white;
+    padding: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
 }
-.login h4{
+
+.login h4 {
     font-size: 170%;
-    color:white
+    color: white
 }
 
 .logd {
     background-color: rgb(173, 173, 207);
     padding: 10px;
     margin: 5px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .signd {
@@ -552,107 +675,192 @@ justify-content: center;
 .signd.bgadd {
     background-color: rgb(173, 173, 207);
 }
-.login form{
+
+.login form {
     display: flex;
     flex-direction: column;
-    gap:10px;
-    margin-top:3%;
+    gap: 10px;
+    margin-top: 3%;
 }
-.login form input,.heading{
-    color:rgb(97, 97, 207);
+
+.login form input,
+.heading {
+    color: rgb(97, 97, 207);
     font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding:12px;
-    background-color: rgb(173,173,209);
-    border:none;
-    border-radius:8px;
-    border:1px solid grey;
+    padding: 12px;
+    background-color: rgb(173, 173, 209);
+    border: none;
+    border-radius: 8px;
+    border: 1px solid grey;
 
 }
-.login ::placeholder{
-    color:white;
+
+.login ::placeholder {
+    color: white;
     opacity: 0.8;
 }
-.login .heading{
+
+.login .heading {
     background-color: transparent;
-    border:none;
-    color:rgb(54, 54, 127);
+    border: none;
+    color: rgb(54, 54, 127);
     font-size: 20px;
 }
+
 /* .login {
     display: none;
 } */
- .login .cross{
-    color:white;
+.login .cross {
+    color: white;
     font-weight: bold;
     font-size: 160%;
     cursor: pointer;
-    margin-left:94%
- }
- .login button{
-    color:white;
+    margin-left: 94%
+}
+
+.login button {
+    color: white;
     background-color: rgb(116, 116, 218);
     font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding:10px;
-        border:2px solid rgb(109, 108, 158);
-        border-radius:6px;
-        cursor: pointer;
- }
- 
-.login{
+    padding: 10px;
+    border: 2px solid rgb(109, 108, 158);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login {
     display: none;
- }
- .login.disp{
+}
+
+.login.disp {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height:70%;
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Apply the blur effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    border-radius: 10px; 
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Semi-transparent white background */
+    backdrop-filter: blur(10px);
+    /* Apply the blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    /* For Safari support */
+    border-radius: 10px;
 }
-#login{
-    color:white;
-    font-weight: 400;
+
+#login {
+    color: #000;
+    /* font-weight: 400; */
     cursor: pointer;
 }
 
-.loginfo input.disp{
+.loginfo input.disp {
     display: block;
-    width:160%;
-    
+    width: 160%;
+
 }
-.signin.disp{
+
+.signin.disp {
     display: block;
 }
 
-.loginbutton{
+.loginbutton {
     display: none;
 }
+
 .signinbutton {
     display: block;
 }
-.signinbutton.disp{display: block;}
-.signin.disp{
-    display: none;
-}
-.error{
-    color:red
+
+.signinbutton.disp {
+    display: block;
 }
 
-body::-webkit-scrollbar{
+.signin.disp {
+    display: none;
+}
+
+.error {
+    color: red
+}
+
+body::-webkit-scrollbar {
     display: none
 }
-.error{
+
+.error {
     color: red;
     font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.loginfo input{
+.loginfo input {
     display: block;
-    width:140%
-   }
+    width: 140%
+}
+
+#doctor-search {
+    width: 750px;
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+/* Container for the search bar */
+.search-container {
+    position: relative;
+    width: 214%;
+    max-width: 670px;
+    left: -210px;
+}
+
+/* Style the search input field */
+#doctor-search {
+    width: 148%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the suggestion list */
+.suggestions-list {
+    position: absolute;
+    width: 147.5%;
+    top: 100%;
+    left: 80px;
+    right: 0;
+    max-height: 200px;
+    /* Limit the height */
+    overflow-y: auto;
+    /* Add scroll if there are many results */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+    /* Initially hidden */
+}
+
+/* Style each list item */
+.suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Highlight the suggestion on hover */
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style for when no results are found */
+.suggestions-list li.no-results {
+    font-style: italic;
+    color: #999;
+}

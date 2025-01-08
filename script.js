@@ -50,3 +50,4 @@ cross_doc.onclick=()=>{
     }
     console.log(doc_log.style.display)
 }
+

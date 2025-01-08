@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    /* background-color: #17206d; */
+    color: #000;
+    /* Violet blue theme */
+    background-color: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 10%;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 60px;
+    height: 50px
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 120%;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links div {
+    color: #000;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    /* color: #ffffff; */
+    /* font-size: 20px; */
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #A9A9F5;
+    /* Light violet blue on hover */
+}
+
+.nav-links a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #A9A9F5;
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    transition: width 0.3s;
+}
+
+#doctor-search {
+    width: 750px;
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+/* Container for the search bar */
+.search-container {
+    position: relative;
+    width: 214%;
+    max-width: 670px;
+    left: -45px;
+}
+
+/* Style the search input field */
+#doctor-search {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+}
+
+/* Style the suggestion list */
+.suggestions-list {
+    position: absolute;
+    width: 147.5%;
+    top: 100%;
+    left: 80px;
+    right: 0;
+    max-height: 200px;
+    /* Limit the height */
+    overflow-y: auto;
+    /* Add scroll if there are many results */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+    /* Initially hidden */
+}
+
+/* Style each list item */
+.suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Highlight the suggestion on hover */
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style for when no results are found */
+.suggestions-list li.no-results {
+    font-style: italic;
+    color: #999;
+}
+
+
+nav{
+    background-color: #f4f4f9;
+            color: #333333;
+            font-family: Poppins;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+}

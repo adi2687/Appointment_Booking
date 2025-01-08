@@ -1,47 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedPulse: Your One-Stop Clinic Scheduler</title>
-    <link rel="icon" href="../image/logo.png">
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <style>
-        #patient{
-            color:White;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            font-family: Poppins;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            /* background-color: #17206d; */
+            color: #000;
+            /* Violet blue theme */
+            background-color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
+
+            gap: 10%;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 50px
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            font-size: 120%;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            /* color: #ffffff; */
+            /* font-size: 20px; */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #A9A9F5;
+            /* Light violet blue on hover */
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #A9A9F5;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        /* Container for the search bar */
+        .search-container {
+            position: relative;
+            width: 214%;
+            max-width: 670px;
+            left: -45px;
+        }
+
+        /* Style the search input field */
+        #doctor-search {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 40px;
+        }
+
+        /* Style the suggestion list */
+        .suggestions-list {
+            position: absolute;
+            width: 147.5%;
+            top: 100%;
+            left: 80px;
+            right: 0;
+            max-height: 200px;
+            /* Limit the height */
+            overflow-y: auto;
+            /* Add scroll if there are many results */
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+            /* Initially hidden */
+        }
+
+        /* Style each list item */
+        .suggestions-list li {
+            padding: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Highlight the suggestion on hover */
+        .suggestions-list li:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Style for when no results are found */
+        .suggestions-list li.no-results {
+            font-style: italic;
+            color: #999;
+        }
+
+        /* .clinic-container {
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 1000px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        display: flex;
+        height: 600px;
+        max-height: fit-content;
+    }  */
+
+        .detail {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow wrapping */
+            gap: 20px;
+            /* Consistent spacing between cards */
+            justify-content: space-between;
+            /* Spread cards evenly */
+            padding: 10px;
+            /* Optional padding */
+            box-sizing: border-box;
+            /* Include padding in width */
+        }
+
+
+        .clinic-container:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .clinic-title {
+            color: #7f8c8d;
+            font-weight: 500;
+            font-size: 1em;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+            /* border-bottom: 2px solid #3498db; */
+            /* padding-bottom: 10px; */
+            transition: color 0.3s ease;
+        }
+
+        .clinic-distance {
+            color: rgb(196, 7, 7);
+            /* text-align: center; */
+        }
+
+        .clinic-map {
+            text-decoration: none;
+            color: #7f8c8d;
+        }
+
+        /* .clinic-title:hover {
+        /* color: #3498db; */
+
+        .doctor-info {
+            flex: 0 1 calc(50% - 20px);
+            /* Two cards per row, accounting for gap */
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            box-sizing: border-box;
+            /* Include padding in width */
+            margin: -6px;
+            border: 1px solid black;
+            /* Remove extra margin */
+        }
+
+
+        .doctor-info:hover {
+            background-color: #ecf0f1;
+        }
+
+        .doctor-name {
+            font-weight: bold;
+            /* color: #2c3e50; */
+            color: black;
+            font-size: 1.2em;
+            margin-bottom: -5px;
+        }
+
+        .doctor-details {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .specializations {
+            /* color: #8e44ad; */
+            color: #7f8c8d;
+            font-weight: 500;
+            font-size: 1em;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        /* Button animations */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .clinic-address {
+            color: #7f8c8d;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        #login {
+            color: whitesmoke;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #patient {
+            color: White;
             font-weight: 400;
             cursor: pointer;
         }
-        .rating{
+
+        .rating {
             font-weight: bold;
         }
-        .clinic-container .clinic-title{
+
+        .clinic-container .clinic-title {
             cursor: pointer;
+        }
+
+        .doctor-flex {
+            display: flex;
+            flex-direction: row;
+            gap: 130px;
+            /* justify-content: space-between; */
+        }
+
+        .email {
+            color: black;
+            font-weight: bold;
+        }
+
+        .img {
+            /* gap: 100px; */
+            padding-right: 10px;
+        }
+
+        .doctor-flex1 {
+            display: flex;
+            flex-direction: row;
+            gap: 90px;
+        }
+
+       
+
+        .doctor-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:44%;
+        }
+        .doctor-name >  div{
+            min-width:10%;
+            margin-right:11%
+        }
+        .doctor-name button{
+padding:10px;
+font-weight: bold;
+background-color:#2980b9;
+color:white;
+border:2px solid grey;
+border-radius:15px;
+cursor: pointer;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="../"><img src="../image/logo.png" alt="">
+            <a href="../"><img src="logo.png" alt="">
             </a>
             MedPulse
 
         </div>
+        <div class="search-container">
+            <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+            <ul id="suggestions" class="suggestions-list"></ul> <!-- Suggestions will appear here -->
+        </div>
         <ul class="nav-links">
-            <li><a href="../">Home</a></li>
-            <li><a href="../appointments">Book-Appointments</a></li>
-            <li id="patient" >Patients</li>
-            <li><a href="../doctor">Doctors and clinics</a></li>
-            <!-- <li><a href="">Services</a></li> -->
-            <!-- <li><a href="../billing">Billing</a></li> -->
-            <li><a href="../reports">Reports</a></li>
-            <li class="symptomschecker"><a href="../symptomxhecker">Symptoms-checker</a></li>
-            <!-- <li id="login">Login</li> -->
+            <li><a href="index.html">Home</a></li>
+            <li><a href="../google/hospital_locator">Hospital locator</a></li>
+            <li><a href="../#container1" class="services">Services</a></li>
+            <!-- <li id="patient">Patients</li> -->
+            <!-- <li><a href="doctor">Doctors and clinics</a></li> -->
+            <!-- <li><a href="billing">Billing</a></li> -->
+            <li id="patient_report"><a href="../reports/patient">Prescription</a></li>
+            <!-- <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li> -->
+            <!-- <li id="login"><a href="doctor">Nearby Doctors</a></li> -->
         </ul>
     </nav>
-<div class="detail"></div>
-<script src="script.js"></script>
-<script src="../profile/login_check_profile.js"></script>
+    <!-- <div class="filter-container">
+        <label for="sort">Sort Doctors By: </label>
+        <select id="sort" onchange="sortDoctors()">
+            <option value="default">Default</option>
+            <option value="rating">Rating</option>
+        </select>
+    </div> -->
+    <div class="detail" id="doctor-list"></div>
+    <script src="script.js"></script>
+    <script src="../profile/login_check_profile.js"></script>
+    <script src="../doctor_search.js"></script>
+    <script>
+        function sortDoctors() {
+            const sortBy = document.getElementById('sort').value;
+            console.log(`Selected sort option: ${sortBy}`); // Debugging
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `sort_doctors.php?sort=${sortBy}`, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log("Response from server:", xhr.responseText); // Debugging
+                    document.getElementById('doctor-list').innerHTML = xhr.responseText;
+                } else {
+                    console.error("Error in AJAX request:", xhr.statusText); // Debugging
+                }
+            };
+            xhr.onerror = function () {
+                console.error("AJAX request failed."); // Debugging
+            };
+            xhr.send();
+        }
+
+        function highlightDoctor(doctorId) {
+            const doctorList = document.querySelectorAll(".doctor-info");
+
+            if (doctorList.length === 0) {
+                console.error("No doctors found in the list.");
+                return;
+            }
+
+            let highlighted = false;
+
+            doctorList.forEach((doctor) => {
+                if (doctor.dataset.id === doctorId) {
+                    doctor.style.backgroundColor = "#ffff99"; // Highlight
+                    doctor.style.border = "2px solid #ffc107"; // Add border
+                    doctor.scrollIntoView({ behavior: "smooth", block: "center" });
+                    highlighted = true;
+                }
+            });
+
+            if (!highlighted) {
+                console.warn(`No doctor found with ID: ${doctorId}`);
+            }
+        }
+
+        // Extract doctor ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const doctorId = urlParams.get("doctor");
+
+        if (doctorId) {
+            highlightDoctor(doctorId);
+        } else {
+            console.warn("No doctor ID provided in the URL.");
+        }
+
+
+    </script>
 </body>
+
 </html>

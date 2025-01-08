@@ -1,0 +1,9 @@
+google.generativeai
+ipykernel
+streamlit
+python-dotenv
+youtube_transcript_api
+pathlib
+googletrans==4.0.0-rc1
+deepL
+flask

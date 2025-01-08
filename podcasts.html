@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcasts & Webinars</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    body {
+      font-family: Poppins;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      font-size: 12px;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
+    .cards-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .card {
+      flex: 1 1 calc(33.333% - 20px);
+      /* 3 cards per row with gap */
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      color: #4CAF50;
+    }
+
+    .card-content p {
+      margin: 5px 0;
+    }
+
+    .tags {
+      margin: 10px 0;
+    }
+
+    .tags span {
+      background: #e0f7e0;
+      color: #4CAF50;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      margin-right: 5px;
+    }
+
+    .watch-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .watch-btn:hover {
+      background: #45a049;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex: 1 1 calc(50% - 20px);
+        /* 2 cards per row for smaller screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        flex: 1 1 100%;
+        /* 1 card per row for very small screens */
+      }
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      /* background-color: #17206d; */
+      color: #000;
+      /* Violet blue theme */
+      background-color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      flex-direction: row;
+
+      align-items: center;
+
+      gap: 10%;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 50px
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      font-size: 120%;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      /* color: #ffffff; */
+      /* font-size: 20px; */
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #A9A9F5;
+      /* Light violet blue on hover */
+    }
+
+    .nav-links a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #A9A9F5;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+      transition: width 0.3s;
+    }
+
+    #doctor-search {
+      width: 750px;
+      height: 40px;
+      border-radius: 15px;
+      border: 1px solid black;
+    }
+
+    /* Container for the search bar */
+    .search-container {
+      position: relative;
+      width: 214%;
+      max-width: 670px;
+      left: -45px;
+    }
+
+    /* Style the search input field */
+    #doctor-search {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 24px;
+    }
+
+    /* Style the suggestion list */
+    .suggestions-list {
+      position: absolute;
+      width: 147.5%;
+      top: 100%;
+      left: 80px;
+      right: 0;
+      max-height: 200px;
+      /* Limit the height */
+      overflow-y: auto;
+      /* Add scroll if there are many results */
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      display: none;
+      /* Initially hidden */
+    }
+
+    /* Style each list item */
+    .suggestions-list li {
+      padding: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Highlight the suggestion on hover */
+    .suggestions-list li:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Style for when no results are found */
+    .suggestions-list li.no-results {
+      font-style: italic;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <nav class="navbar">
+    <div class="logo">
+      <a href=""><img src="image/logo.png" alt="">
+      </a>
+      MedPulse
+
+    </div>
+    <div class="search-container">
+      <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+      <ul id="suggestions" class="suggestions-list"></ul> <!-- Suggestions will appear here -->
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="google/hospital_locator">Hospital locator</a></li>
+      <li><a href="index.html#container1" class="services">Services</a></li>
+      <!-- <li id="patient">Patients</li> -->
+      <!-- <li><a href="doctor">Doctors and clinics</a></li> -->
+      <!-- <li><a href="billing">Billing</a></li> -->
+      <li id="patient_report">Prescription</li>
+      <!-- <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li> -->
+      <li id="login"><a href="doctor">Nearby Doctors</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Podcasts & Webinars</h1>
+  </header>
+
+  <div class="container">
+    <div id="podcasts" class="section">
+      <h2>Podcasts</h2>
+      <div id="podcast-cards" class="cards-wrapper"></div>
+    </div>
+
+    <div id="webinars" class="section">
+      <h2>Webinars</h2>
+      <div id="webinar-cards" class="cards-wrapper"></div>
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = "https://0c495522-8ac3-4e70-a84f-f8918f2bd083.mock.pstmn.io/podcasts";
+
+    async function fetchData() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === "success" && data.data) {
+          displayPodcasts(data.data.podcasts);
+          displayWebinars(data.data.webinars);
+        } else {
+          document.getElementById("podcast-cards").innerHTML = "<p>No podcasts available.</p>";
+          document.getElementById("webinar-cards").innerHTML = "<p>No webinars available.</p>";
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        document.getElementById("podcast-cards").innerHTML = "<p>Error loading podcasts.</p>";
+        document.getElementById("webinar-cards").innerHTML = "<p>Error loading webinars.</p>";
+      }
+    }
+
+    function displayPodcasts(podcasts) {
+      const podcastCards = document.getElementById("podcast-cards");
+      podcasts.forEach(podcast => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <img src="${podcast.thumbnail_url}" alt="${podcast.title}" />
+          <div class="card-content">
+            <h3>${podcast.title}</h3>
+            <p>${podcast.description}</p>
+            <p><strong>Host:</strong> ${podcast.host}</p>
+            <p><strong>Duration:</strong> ${podcast.duration}</p>
+            <p><strong>Release Date:</strong> ${podcast.release_date}</p>
+            <div class="tags">
+              ${podcast.tags.map(tag => `<span>${tag}</span>`).join(" ")}
+            </div>
+            <a href="${podcast.youtube_url}" target="_blank" class="watch-btn">Watch Now</a>
+          </div>
+        `;
+
+        podcastCards.appendChild(card);
+      });
+    }
+
+    function displayWebinars(webinars) {
+      const webinarCards = document.getElementById("webinar-cards");
+      webinars.forEach(webinar => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <img src="${webinar.thumbnail_url}" alt="${webinar.title}" />
+          <div class="card-content">
+            <h3>${webinar.title}</h3>
+            <p>${webinar.description}</p>
+            <p><strong>Presenter:</strong> ${webinar.presenter}</p>
+            <p><strong>Duration:</strong> ${webinar.duration}</p>
+            <p><strong>Recorded Date:</strong> ${webinar.recorded_date}</p>
+            <div class="tags">
+              ${webinar.tags.map(tag => `<span>${tag}</span>`).join(" ")}
+            </div>
+            <a href="${webinar.youtube_url}" target="_blank" class="watch-btn">Watch Now</a>
+          </div>
+        `;
+
+        webinarCards.appendChild(card);
+      });
+    }
+
+    fetchData();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Products</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    body {
+      font-family: Poppins;
+      font-size: 12px;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product-card .price {
+      font-size: 16px;
+      font-weight: bold;
+      color: #007BFF;
+    }
+
+    .product-card .availability {
+      font-size: 14px;
+      color: green;
+    }
+
+    .product-card .ratings {
+      color: #FFD700;
+    }
+
+    .product-card button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .product-card button:hover {
+      background-color: #0056b3;
+    }
+
+    .cart-container {
+      margin-top: 40px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cart-container h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cart-item span {
+      font-size: 14px;
+    }
+
+    .cart-summary {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      /* background-color: #17206d; */
+      color: #000;
+      /* Violet blue theme */
+      background-color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      flex-direction: row;
+
+      align-items: center;
+
+      gap: 10%;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 50px
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      font-size: 120%;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      /* color: #ffffff; */
+      /* font-size: 20px; */
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #A9A9F5;
+      /* Light violet blue on hover */
+    }
+
+    .nav-links a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #A9A9F5;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+      transition: width 0.3s;
+    }
+
+    #doctor-search {
+      width: 750px;
+      height: 40px;
+      border-radius: 15px;
+      border: 1px solid black;
+    }
+
+    /* Container for the search bar */
+    .search-container {
+      position: relative;
+      width: 214%;
+      max-width: 670px;
+      left: -45px;
+    }
+
+    /* Style the search input field */
+    #doctor-search {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 24px;
+    }
+
+    /* Style the suggestion list */
+    .suggestions-list {
+      position: absolute;
+      width: 147.5%;
+      top: 100%;
+      left: 80px;
+      right: 0;
+      max-height: 200px;
+      /* Limit the height */
+      overflow-y: auto;
+      /* Add scroll if there are many results */
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      display: none;
+      /* Initially hidden */
+    }
+
+    /* Style each list item */
+    .suggestions-list li {
+      padding: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Highlight the suggestion on hover */
+    .suggestions-list li:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Style for when no results are found */
+    .suggestions-list li.no-results {
+      font-style: italic;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href=""><img src="image/logo.png" alt="">
+      </a>
+      MedPulse
+
+    </div>
+    <div class="search-container">
+      <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+      <ul id="suggestions" class="suggestions-list"></ul> <!-- Suggestions will appear here -->
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="google/hospital_locator">Hospital locator</a></li>
+      <li><a href="index.html#container1" class="services">Services</a></li>
+      <!-- <li id="patient">Patients</li> -->
+      <!-- <li><a href="doctor">Doctors and clinics</a></li> -->
+      <!-- <li><a href="billing">Billing</a></li> -->
+      <li id="patient_report">Prescription</li>
+      <!-- <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li> -->
+      <li id="login"><a href="doctor">Nearby Doctors</a></li>
+    </ul>
+  </nav>
+  <h1>Medical Products</h1>
+  <div id="products" class="products-container">
+    <!-- Product cards will be inserted here -->
+  </div>
+
+  <div id="cart" class="cart-container">
+    <h2>Shopping Cart</h2>
+    <div id="cart-items">
+      <p>Your cart is empty.</p>
+    </div>
+    <div id="cart-summary" class="cart-summary"></div>
+  </div>
+
+  <script>
+    const apiUrl = "https://30b18eb9-53f7-4b57-941b-69132fd921b5.mock.pstmn.io/";
+    const endpoint = "product";
+
+    let cart = [];
+    const deliveryCharge = 5.0; // Fixed delivery charge
+
+    async function fetchProducts() {
+      try {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          if (data && data.data && data.data.products) {
+            displayProducts(data.data.products);
+          } else {
+            console.error("Unexpected API response structure:", data);
+          }
+        } else {
+          console.error("Failed to fetch products. Status code:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+
+    function displayProducts(products) {
+      const productsContainer = document.getElementById("products");
+      productsContainer.innerHTML = "";
+
+      products.forEach(product => {
+        const productCard = document.createElement("div");
+        productCard.classList.add("product-card");
+
+        productCard.innerHTML = `
+          <img src="${product.image_url}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+          <p class="price">$${product.price.toFixed(2)}</p>
+          <p class="availability">${product.availability}</p>
+          <p class="ratings">⭐ ${product.ratings} / 5</p>
+          <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+        `;
+
+        productsContainer.appendChild(productCard);
+      });
+    }
+
+    function addToCart(product) {
+      cart.push(product);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const cartContainer = document.getElementById("cart-items");
+      const cartSummary = document.getElementById("cart-summary");
+      cartContainer.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        cartSummary.innerHTML = "";
+        return;
+      }
+
+      let totalCost = 0;
+
+      cart.forEach((item, index) => {
+        totalCost += item.price;
+
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+
+        cartItem.innerHTML = `
+          <span>${item.name} - $${item.price.toFixed(2)}</span>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+
+        cartContainer.appendChild(cartItem);
+      });
+
+      const finalCost = totalCost + deliveryCharge;
+      cartSummary.innerHTML = `
+        Total: $${totalCost.toFixed(2)} <br>
+        Delivery Charge: $${deliveryCharge.toFixed(2)} <br>
+        <strong>Final Total: $${finalCost.toFixed(2)}</strong>
+      `;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    fetchProducts();
+  </script>
+</body>
+
+</html>

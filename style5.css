@@ -26,16 +26,16 @@ label {
 }
 
 #patient {
-    color: White;
-    font-weight: 400;
+    color: #000;
+    /* font-size: 20px; */
+    /* font-weight: 400; */
     cursor: pointer;
 }
 
 #patient_report {
-    color: white;
-    font-weight: 500;
+    color: #000;
+    /* font-weight: 500; */
     cursor: pointer;
-
 }
 
 .middle-one img,

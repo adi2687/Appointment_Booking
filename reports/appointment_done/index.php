@@ -38,7 +38,9 @@ if (!empty($app)) {
                 $response .= "<p><strong>Message:</strong> " . htmlspecialchars($appointment['message']) . "</p>";
                 $response .= "<p><strong>Registered at:</strong> " . htmlspecialchars($appointment['time_of_reg']) . "</p>";
                 $response .= "</div>";
-
+                if ($appointment['done'] == 1) {
+                    $response .= "it is done";
+                }   
                 echo $response;
             } else {
                 echo "<p>You cannot access other doctors' patients.</p>";
@@ -94,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt->execute();
             $appointment_id = $_GET['appointment_id'];
-            
+
             header("Location: ../patient/sendmailinstant.php?appointment_id=$appointment_id&patient_id=$patient_id");
             echo "<p class='status'>Prescription updated successfully.</p>";
         } catch (PDOException $e) {

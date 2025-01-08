@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Authentication</title>
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="formmain.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>
+            <a href="../">MedPulse</a></h2>
+        <h2>OTP Authentication</h2>
+
+        <!-- OTP Request Form -->
+        <form action="send_otp.php" method="POST" id="emailForm">
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit">Get OTP</button>
+        </form>
+
+     
+
+        <!-- Error or Success Message -->
+        <div id="message" class="error" style="display:none;"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -34,18 +34,19 @@
 .loginchoice {
     width: 40%;
     padding: 30px;
-    backdrop-filter: blur(12px);
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Drop shadow for modern look */
+    backdrop-filter: blur(12px); /* Blurs background elements behind the div */
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker semi-transparent overlay */
+    border-radius: 15px; /* Smooth rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Modern drop shadow */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: white; /* Text color for contrast */
     text-align: center;
-    transition: all 0.3s ease-in-out;
-    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+    font-family: 'Arial', sans-serif; /* Clean font */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for visibility */
 }
 
 .loginchoice h1 {

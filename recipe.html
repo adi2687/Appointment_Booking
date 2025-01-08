@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Lifestyle Recipes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body {
+            font-family: Poppins;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .filters label {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .filters select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 180px;
+            background-color: #fff;
+        }
+
+        .search-container1 {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #searchQuery {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 250px;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .recipes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .recipe-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: calc(25% - 20px); /* Four cards in a row */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 350px; /* Set a fixed height */
+            box-sizing: border-box;
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .recipe-card h3 {
+            margin: 10px 0;
+        }
+
+        .recipe-card p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .recipe-card .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .recipe-card .info p {
+            margin: 0;
+        }
+
+        .recipe-card a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1200px) {
+            .recipe-card {
+                width: calc(33.33% - 20px); /* Three cards in a row */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .recipe-card {
+                width: calc(50% - 20px); /* Two cards in a row */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recipe-card {
+                width: 100%; /* One card per row */
+            }
+        }
+
+        .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      /* background-color: #17206d; */
+      color: #000;
+      /* Violet blue theme */
+      background-color: white;
+      position: relative;
+      top: -28px;
+      /* width: 100%; */
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      flex-direction: row;
+
+      align-items: center;
+
+      gap: 10%;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 50px
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      font-size: 120%;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      /* color: #ffffff; */
+      /* font-size: 20px; */
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #A9A9F5;
+      /* Light violet blue on hover */
+    }
+
+    .nav-links a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #A9A9F5;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+      transition: width 0.3s;
+    }
+
+    #doctor-search {
+      width: 750px;
+      height: 40px;
+      border-radius: 15px;
+      border: 1px solid black;
+    }
+
+    /* Container for the search bar */
+    .search-container {
+      position: relative;
+      width: 214%;
+      max-width: 670px;
+      left: -45px;
+      top: 3px;
+    }
+
+    /* Style the search input field */
+    #doctor-search {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 24px;
+    }
+
+    /* Style the suggestion list */
+    .suggestions-list {
+      position: absolute;
+      width: 147.5%;
+      top: 100%;
+      left: 80px;
+      right: 0;
+      max-height: 200px;
+      /* Limit the height */
+      overflow-y: auto;
+      /* Add scroll if there are many results */
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      display: none;
+      /* Initially hidden */
+    }
+
+    /* Style each list item */
+    .suggestions-list li {
+      padding: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Highlight the suggestion on hover */
+    .suggestions-list li:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Style for when no results are found */
+    .suggestions-list li.no-results {
+      font-style: italic;
+      color: #999;
+    }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href=""><img src="image/logo.png" alt="">
+            </a>
+            MedPulse
+
+        </div>
+        <div class="search-container">
+            <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+            <ul id="suggestions" class="suggestions-list"></ul> <!-- Suggestions will appear here -->
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="google/hospital_locator">Hospital locator</a></li>
+            <li><a href="index.html#container1" class="services">Services</a></li>
+            <!-- <li id="patient">Patients</li> -->
+            <!-- <li><a href="doctor">Doctors and clinics</a></li> -->
+            <!-- <li><a href="billing">Billing</a></li> -->
+            <li id="patient_report">Prescription</li>
+            <!-- <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li> -->
+            <li id="login"><a href="doctor">Nearby Doctors</a></li>
+        </ul>
+    </nav>
+
+    <h1>Healthy Recipes</h1>
+
+    <!-- Food Item Input First -->
+    <div class="search-container1">
+        <input type="text" id="searchQuery" placeholder="Search for a recipe...">
+        <button onclick="fetchRecipes()">Search</button>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters">
+        <label for="diet">Dietary Preference:</label>
+        <select id="diet">
+            <option value="">None</option>
+            <option value="low-fat">Low Fat</option>
+            <option value="high-protein">High Protein</option>
+            <option value="gluten-free">Gluten Free</option>
+            <option value="vegan">Vegan</option>
+            <option value="keto">Keto</option>
+        </select>
+
+        <label for="health">Health Labels:</label>
+        <select id="health">
+            <option value="">None</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="low-calorie">Low Calorie</option>
+            <option value="low-sodium">Low Sodium</option>
+            <option value="sugar-conscious">Sugar Conscious</option>
+        </select>
+    </div>
+
+    <!-- Spinning Loader -->
+    <div id="loading" class="loading">
+        <div class="loader"></div>
+        <p>Loading recipes...</p>
+    </div>
+
+    <div id="recipesContainer" class="recipes-container"></div>
+
+    <script>
+        const API_ID = '2762026b'; // Replace with your API ID
+        const API_KEY = '806c2e9992da07d59e45c8ddaf0c2f3a'; // Replace with your API Key
+        const BASE_URL = 'https://api.edamam.com/api/recipes/v2';
+        const USER_ID = 'your_user_id'; // Replace with your Edamam Account User ID
+
+        // Fetch recipes from the Edamam API
+        function fetchRecipes() {
+            const query = document.getElementById('searchQuery').value;
+            const diet = document.getElementById('diet').value;
+            const health = document.getElementById('health').value;
+            
+            if (query.length > 0) {
+                let url = `${BASE_URL}?type=public&q=${query}&app_id=${API_ID}&app_key=${API_KEY}`;
+                
+                // Add diet and health filters to the URL if selected
+                if (diet) {
+                    url += `&diet=${diet}`;
+                }
+                if (health) {
+                    url += `&health=${health}`;
+                }
+
+                // Show loader
+                document.getElementById('loading').style.display = 'block';
+                
+                // Make an API call using Fetch
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Edamam-Account-User': USER_ID, // Pass the userID in the headers
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        displayRecipes(data.hits, health);
+                        document.getElementById('loading').style.display = 'none'; // Hide loader
+                    })
+                    .catch(error => {
+                        console.error("Error fetching recipes:", error);
+                        document.getElementById('loading').style.display = 'none'; // Hide loader
+                    });
+            }
+        }
+
+        // Display fetched recipes on the page
+        function displayRecipes(recipes, userHealthLabel) {
+            const recipesContainer = document.getElementById('recipesContainer');
+            recipesContainer.innerHTML = ''; // Clear any previous results
+            
+            if (recipes && recipes.length > 0) {
+                recipes.forEach(recipeData => {
+                    const recipe = recipeData.recipe;
+                    const recipeCard = document.createElement('div');
+                    recipeCard.classList.add('recipe-card');
+                    
+                    // Combine user's health label with one label from recipe, ensuring up to 3 distinct labels are displayed
+                    let healthLabels = new Set();
+                    if (userHealthLabel) {
+                        healthLabels.add(userHealthLabel);
+                    }
+                    if (recipe.healthLabels && recipe.healthLabels.length > 0) {
+                        recipe.healthLabels.forEach(label => healthLabels.add(label));
+                    }
+
+                    // Limit the healthLabels to 3
+                    healthLabels = Array.from(healthLabels).slice(0, 3).join(', ');
+
+                    recipeCard.innerHTML = `
+                        <img src="${recipe.image}" alt="${recipe.label}">
+                        <h3>${recipe.label}</h3>
+                        <div class="info">
+                            <p>Calories: ${Math.round(recipe.calories)} kcal</p>
+                            <p>Ingredients: ${recipe.ingredients.length}</p> <!-- Display number of ingredients -->
+                        </div>
+                        <p>Health Labels: ${healthLabels}</p>
+                        <a href="${recipe.url}" target="_blank">View Recipe</a>
+                    `;
+                    
+                    recipesContainer.appendChild(recipeCard);
+                });
+            } else {
+                recipesContainer.innerHTML = '<p>No recipes found. Try another search.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>

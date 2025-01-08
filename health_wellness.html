@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Features</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 50px;
+            flex-wrap: wrap;
+        }
+
+        .boxes {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            height: 380px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .boxes:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, #007C9D, #01C9C9);
+            color: white;
+        }
+
+        .boxes img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .boxes .text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .boxes p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container1 {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .boxes {
+                width: 90%;
+                max-width: 350px;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container1">
+        <div class="boxes" onclick="window.location.href='health.html'">
+            <img src="image/news-feed.png" alt="News Feed">
+            <div class="text">News Feed</div>
+            <p>The Health News Feed delivers real-time, reliable health news from trusted sources, featuring article titles, descriptions, and images, keeping you informed on the latest health updates effortlessly.</p>
+        </div>
+        <div class="boxes" onclick="window.location.href='health_videos.html'">
+            <img src="image/library.png" alt="Health Videos">
+            <div class="text">Video Library</div>
+            <p>The Health Video Library offers a curated collection of informative health videos, covering topics from wellness tips to medical advancements, providing users with easy access to visual health resources.</p>
+        </div>
+        <div class="boxes" onclick="window.location.href='podcasts.html'">
+            <img src="image/microphone.png" alt="Health Videos">
+            <div class="text">Podcasts and Webinars</div>
+            <p>Explore captivating podcasts and insightful webinars featuring expert hosts, dynamic content, and inspiring discussions. Discover, learn, and grow with engaging topics tailored for your personal and professional journey!</p>
+        </div>
+        <div class="boxes" onclick="window.location.href='recipe.html'">
+            <img src="image/recipe-book.png" alt="Health Videos">
+            <div class="text">Wellness Kitchen</div>
+            <p>Discover personalized, health-focused recipes tailored to your dietary preferences. Whether you're vegan, gluten-free, or following a low-calorie diet, our feature helps you find delicious meals that align with your wellness goals.</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -860,6 +860,7 @@ h1{
 }
 
     </style>
+<link rel="stylesheet" href="../nav.css">
 </head>
 
 <body>
@@ -867,19 +868,20 @@ h1{
         <div class="logo">
             <a href="../"><img src="../image/logo.png" alt="">
             </a>
-            MedPulse 
+            MedPulse
 
         </div>
+        <div class="search-container">
+            <input type="text" id="doctor-search" placeholder="Search for doctors..." />
+            <ul id="suggestions" class="suggestions-list"></ul>
+        </div>
         <ul class="nav-links">
-            <li><a href="">Home</a></li>
-            <li><a href="google/hospital_locator">Hospital locator</a></li>
-            <li><a href="../appointments">Book-Appointments</a></li>
-            <li id="patient">Patients</li>
-            <li><a href="doctor">Doctors and clinics</a></li>
-            <!-- <li><a href="billing">Billing</a></li> -->
-            <li id="patient_report">Prescription</li>
-            <li class="symptomschecker"><a href="prediction">Symptoms-checker</a></li>
-            <li id="login">Login</li>
+            <li><a href="../">Home</a></li>
+            <li><a href="../google/hospital_locator">Hospital locator</a></li>
+            <li><a href="../#container1" class="services">Services</a></li>
+            
+            <li id="patient_report" style="color:black;font-weight:400"><a href='../reports/patient'>Prescription</a></li>
+            <!-- <li id="login" style="color:grey">Login</li> -->
         </ul>
     </nav>
     <div class="logout">
@@ -901,6 +903,7 @@ h1{
     <script src="profile.js"></script>
     <script src="logout.js"></script>
     <script src="login_check_profile.js"></script>
+    <script src="../doctor_search.js"></script>
     <script>
         let is_doctor = false;
         const locationbutton = document.querySelector(".location button");
@@ -966,6 +969,8 @@ h1{
         };
         xhr_l1.send()
         document.getElementById("patient_report").addEventListener('click',()=>{window.location.href="http://localhost/MedPulse-main/reports/patient/"})
+    
+    
     </script>
 
     <!-- <a href="../access.php"></a> -->

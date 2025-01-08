@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedBot Chat Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      width: 50%;
+      height: 70%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-header {
+      background-color: #a8e6a3;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-header img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    .chat-body {
+      flex: 1;
+      background-color: #e8f9e8;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .chat-footer {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+    .chat-footer input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      margin-right: 10px;
+    }
+    .chat-footer button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 14px;
+    }
+    .chat-footer .ask-btn {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .chat-footer .send-btn {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .chat-footer .upload-btn {
+      background-color: #ffc107;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <img src="https://img.icons8.com/emoji/48/robot-emoji.png" alt="MedBot Logo">
+      MedBot
+    </div>
+
+    <!-- Chat Body -->
+    <div class="chat-body">
+      <!-- Chat messages go here -->
+    </div>
+
+    <!-- Chat Footer -->
+    <div class="chat-footer">
+      <input type="text" placeholder="Ask about the image or provide details...">
+      <button class="ask-btn">Ask</button>
+      <button class="upload-btn">📤</button>
+      <button class="send-btn">Send</button>
+    </div>
+  </div>
+</body>
+</html>

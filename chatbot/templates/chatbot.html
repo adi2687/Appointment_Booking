@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Advisor Chat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .chat-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: rgb(230, 255, 230);
+            border-radius: 0px 0px 10px 10px;
+            height: 400px;
+        }
+        .chat-entry {
+            margin-bottom: 20px;
+        }
+        .user-message, .model-message {
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            margin-left: auto;
+        }
+        .model-message {
+            background-color: #fff;
+            margin-right: auto;
+            margin-top: 15px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 285%;
+            padding-top: 10px;
+            height: 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .button {
+            position: relative;
+            width: 17%;
+            padding: 10px 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            top: -42px;
+            left: 730px;
+        }
+
+        .button2 {
+            position: relative;
+            width: 7%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            top: 56px;
+            left: 389px;
+        }
+
+        .button1 {
+            position: relative;
+            width: 15%;
+            padding: 10px 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            top: 58px;
+            left: 260px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .file-input {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .file-input input {
+            margin-top: 10px;
+        }
+
+        .img_input {
+            position: relative;
+            top: 60px;
+            left: 338px;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            gap: 5px;
+            border-radius: 50%; /* This makes the avatar circular */
+            object-fit: cover; /* Ensures the image scales properly within the circle */
+        }
+
+        .model-avatar {
+            height: 30px;
+            width: 30px;
+            gap: 5px;
+            border-radius: 50%; /* This makes the avatar circular */
+            object-fit: cover; /* Ensures the image scales properly within the circle */
+        }
+
+        .bot {
+            /* border: 1px solid black; */
+            border-radius: 20px 20px 0px 0px;
+            background-color: rgb(182, 232, 182);
+            font-family: Poppins;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .upload-icon {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.upload-icon img {
+    width: 54px; /* Adjust icon size */
+    height: 54px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    left: 386px;
+    top: 80px;
+}
+
+.upload-icon img:hover {
+    transform: scale(1.1); /* Hover effect */
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="bot">
+        <img class="model-avatar" src="{{ url_for('static', filename='image/chatbot_10.avif') }}" class="chat-avatar">
+        <h2>MedBot</h2>
+    </div>
+    <!-- Chat History Section -->
+    <div class="chat-box" id="chat-box">
+        {% if chat_history %}
+            {% for chat in chat_history %}
+                <div class="chat-entry {% if chat.user %}user-entry{% endif %}">
+                    {% if chat.user %}
+                        <div class="user">
+                            <div class="user-message"><img class="user-avatar" src="{{ url_for('static', filename='image/user-avatar.jpg') }}" width="25px" height="auto" alt="User Avatar" class="chat-avatar user-avatar">{{ chat.user }}</div>
+                        </div>
+                    {% endif %}
+                    {% if chat.model %}
+                        <div class="model">
+                            <div class="model-message"><img class="model-avatar" src="{{ url_for('static', filename='image/chatbot_10.avif') }}" class="chat-avatar">{{ chat.model }}</div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if image_data %}
+            <div class="chat-entry">
+                <div class="model-message"><strong>Uploaded Image:</strong></div>
+                <div class="image-container">
+                    <img src="data:image/png;base64,{{ image_data }}" alt="Uploaded Image">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Image Upload Section -->
+    <div class="file-input">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="image-upload" class="upload-icon">
+                <img src="{{ url_for('static', filename='image/upload-icon.png') }}" alt="Upload Icon" />
+            </label>
+            <input type="file" id="image-upload" name="image" accept="image/*" style="display: none;" onchange="this.form.submit()">
+            <button class="button2" type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- User Input Section -->
+    <div class="input-box">
+        <form method="POST" action="/ask">
+            <input type="text" name="user_input" required placeholder="Ask about the image or provide details...">
+            <button class="button" type="submit">Ask</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Automatically scroll to the bottom of the chat box
+    const chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+
+</body>
+</html>

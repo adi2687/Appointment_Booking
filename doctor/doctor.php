@@ -65,12 +65,10 @@ foreach ($clinics as $clinic) {
 $clinic_id=$clinic['clinic_id'];
     // Calculate the distance between user and clinic
     $distance = haversineDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo);
-
-    echo "<div class='clinic-container'>";
-    echo "<div class='clinic-title'>Clinic: " . htmlspecialchars($clinicName) . "</div>";   
-    echo "<div class='clinic-address'>Address: " . htmlspecialchars($address) . "</div>";
-    echo "<div class='clinic-distance'>Distance: " . round($distance, 2) . " km from you</div>";
-    echo "<div><a href='../google/hospital?lat=$latitudeTo&lon=$longitudeTo'>See $clinicName on maps </a></div>";
+    // echo "<div class='clinic-title'>Clinic: " . htmlspecialchars($clinicName) . "</div>";   
+    // echo "<div class='clinic-address'>Address: " . htmlspecialchars($address) . "</div>";
+    // echo "<div class='clinic-distance'>Distance: " . round($distance, 2) . " km from you</div>";
+    // echo "<div><a href='../google/hospital?lat=$latitudeTo&lon=$longitudeTo'>See $clinicName on maps </a></div>";
     // Query to get doctors for each clinic
     $query1 = "SELECT * FROM doctors WHERE clinic_id = :clinic_id";
     $stmt1 = $pdo->prepare($query1);
@@ -78,7 +76,6 @@ $clinic_id=$clinic['clinic_id'];
     $stmt1->execute();
 
     $doctors = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-
     // Display doctor details
     foreach ($doctors as $doctor) {
         $doctorName = $doctor['fname'] . " " . $doctor['lname'];
@@ -90,17 +87,24 @@ $doctor_id=$doctor['unique_id'];
         $stmt2->bindParam(":name", $doctorName);
         $stmt2->execute();
         $ratingCount = $stmt2->fetch(PDO::FETCH_ASSOC)['rating_count'];
-// echo $doctor_id;
-        echo "<div class='doctor-info'>";
-        echo "<div class='doctor-name'>" . htmlspecialchars($doctorName) . "</div>";
-        echo "<div class ='doctordir'><a href='../appointments/book_appointment_with_doctor.php?doctor_id=$doctor_id'>Book appointment with $doctorName</a></div>";
-        echo "<div class='doctor-details'>Contact: " . htmlspecialchars($doctor['number']) . "</div>";
-        echo "<div class='doctor-details'>Email: " . htmlspecialchars($doctor['email']) . "</div>";
+        echo "<div class='doctor-info' data-id='" . htmlspecialchars($doctor['id']) . "'>";
+        echo "<div class='doctor-name'><div>Name: " . htmlspecialchars($doctorName) . "</div><button class='doc_book' onclick=(window.location.href='../appointments/book_appointment_with_doctor.php?doctor_id=".$doctor_id."')>Book Appointment</button></div>";
         echo "<div class='specializations'>Specializations: " . htmlspecialchars($specializations) . "</div>";
-        echo "<div class='rating'>Rating: " . htmlspecialchars(round($doctor['rating'],1)) . " stars. Rated by $ratingCount patients</div>";
+        echo "<div class='doctor-flex'>";
+        echo "<div class='doctor-details email'>Contact: " . htmlspecialchars($doctor['number']) . "</div>";
+        echo "<div class='doctor-details email'>Email: " . htmlspecialchars($doctor['email']) . "</div>";
         echo "</div><br>";
+        echo "<div class='doctor-flex1'>";
+        echo "<div class=''>";
+        echo "<div class='clinic-title'>Clinic: " . htmlspecialchars($clinicName) . "</div>";
+        echo "<div class='clinic-address'>Address: " . htmlspecialchars($address) . "</div>";
+        echo "</div><br>";
+        echo "<div> <img class='img' src='location.png' alt='' height='15px' width='auto'><a class='clinic-map' href='../google/hospital?lat=$latitudeTo&lon=$longitudeTo'>See $clinicName on maps </a></div>";
+        echo "</div><br>";
+        echo "<div class='clinic-distance'>Distance: " . round($distance, 2) . " km from you</div>"; 
+        echo "<div class='rating'>Rating: " . htmlspecialchars($doctor['rating']) . " stars. Rated by $ratingCount patients</div>";
+        echo "</div><br>";
+    
     }
-
-    echo "</div><br>";
 }
 ?>
